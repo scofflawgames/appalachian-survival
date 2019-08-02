@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ItemDatabase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public List<Item> dataBaseItems = new List<Item>();
+
+    public Item GetItemById(int id)
     {
-        
+        Item itemToReturn = dataBaseItems[id];
+        return itemToReturn;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+[CreateAssetMenu]
+public class Item : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //general info
+    public string itemName;
+    public Sprite itemIcon;
+
+    //stackable stuff
+    public bool isStackable;
+    public int maxStackAmount;
+
+    //durability stuff
+    public bool useDurability;
+    public int maxDurabilty;
+    public int currentDurability;
+
+    //crafting stuff
+    public bool isCraftable;
+    public List<Item> crftItems = new List<Item>();
+    public List<int> crftAmnt = new List<int>();
+    public int makesHowMany;
+    public int MinLevelToCraft;
+
+
 }
