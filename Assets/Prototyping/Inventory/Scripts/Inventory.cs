@@ -110,13 +110,13 @@ public class Inventory : MonoBehaviour
 
     public void ShowToolTip(Item toolTipItem)
     {
-        toolTipPanel.SetActive(true);
-        toolTipText.text = toolTipItem.itemName + "\n" + toolTipItem.MinLevelToCraft.ToString();
+        //toolTipPanel.SetActive(true);
+        //toolTipText.text = toolTipItem.itemName + "\n" + toolTipItem.MinLevelToCraft.ToString();
     }
 
     public void HideToolTip()
     {
-        toolTipPanel.SetActive(false);
+        //toolTipPanel.SetActive(false);
     }
 
     //end o class

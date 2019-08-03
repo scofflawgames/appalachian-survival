@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cedac77ec39f2d449657abf75f11cd0, type: 3}
   m_Name: Axe001
   m_EditorClassIdentifier: 
-  itemName: 
-  itemIcon: {fileID: 0}
+  itemName: Stone Axe
+  itemIcon: {fileID: 21300000, guid: 9504454b9444287419464c01cce598a9, type: 3}
   isStackable: 0
   maxStackAmount: 0
   useDurability: 0

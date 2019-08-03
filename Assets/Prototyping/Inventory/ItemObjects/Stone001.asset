@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cedac77ec39f2d449657abf75f11cd0, type: 3}
   m_Name: Stone001
   m_EditorClassIdentifier: 
-  itemName: 
-  itemIcon: {fileID: 0}
-  isStackable: 0
-  maxStackAmount: 0
+  itemName: Stone
+  itemIcon: {fileID: 21300000, guid: 324e3b67f9ff6d840b5be6a3396f2c2c, type: 3}
+  isStackable: 1
+  maxStackAmount: 99
   useDurability: 0
   maxDurabilty: 0
   currentDurability: 0

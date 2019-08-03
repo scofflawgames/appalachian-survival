@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
     Inventory inventory;
-    Image myImage;
-    Text myText;
-    Slider durabilityBar;
+    Image myImage = null;
+    TextMeshProUGUI myText = null;
+    GameObject itemAmount;
+    //Slider durabilityBar;
 
 
     public Item myItem;
@@ -18,10 +20,11 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     void Start()
     {
+        itemAmount = transform.GetChild(1).GetComponent<GameObject>(); //(Goal is to get gameobject in 2nd child and disable/enable in regards to amount)
         inventory = GameObject.FindObjectOfType<Inventory>();
         myImage = transform.GetChild(0).GetComponent<Image>();
-        myText = transform.GetChild(1).GetComponent<Text>();
-        durabilityBar = transform.GetChild(2).GetComponent<Slider>();
+        myText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        //durabilityBar = transform.GetChild(2).GetComponent<Slider>();
         ShowUI();
     }
 
@@ -46,6 +49,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
             myAmount -= amnt;
             if (myAmount <= 0)
             {
+                itemAmount.SetActive(false);
                 myItem = null;
             }
         }
@@ -62,20 +66,20 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
             myText.text = myAmount.ToString();
             if (myItem.useDurability)
             {
-                durabilityBar.gameObject.SetActive(true);
-                durabilityBar.maxValue = myItem.maxDurabilty;
-                durabilityBar.value = myItem.currentDurability;
+               // durabilityBar.gameObject.SetActive(true);
+               // durabilityBar.maxValue = myItem.maxDurabilty;
+                //durabilityBar.value = myItem.currentDurability;
             }
             else
             {
-                durabilityBar.gameObject.SetActive(false);
+                //durabilityBar.gameObject.SetActive(false);
             }
         }
         else
         {
             myImage.enabled = false;
             myText.enabled = false;
-            durabilityBar.gameObject.SetActive(false);
+            //durabilityBar.gameObject.SetActive(false);
         }
     }
 
