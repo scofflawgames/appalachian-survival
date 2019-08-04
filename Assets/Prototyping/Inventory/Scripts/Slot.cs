@@ -111,15 +111,15 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (myItem != null)
-        {
-            inventory.ShowToolTip(myItem);
-        }
+        //if (myItem != null)
+        //{
+          //  inventory.ShowToolTip(myItem);
+        //}
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        inventory.HideToolTip();
+        //inventory.HideToolTip();
     }
 
     //end o class

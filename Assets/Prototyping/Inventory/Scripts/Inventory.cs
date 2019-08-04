@@ -19,9 +19,9 @@ public class Inventory : MonoBehaviour
     public bool isDragging = false;
     public Image draggingImage = null;
     [HideInInspector]
-    public Item draggingItem = null;
+    public Item draggingItem;
     [HideInInspector]
-    public int draggingAmount = 0;
+    public int draggingAmount;
 
     public GameObject toolTipPanel = null;
     public Text toolTipText = null;

@@ -46,7 +46,7 @@ public class Crafting : MonoBehaviour
             }
             else
             {
-                print("cant craft that item");
+                Debug.Log("Cant craft that item!!!");
             }
         }
         else
