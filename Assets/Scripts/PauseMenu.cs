@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
-            PlayerFPSController.current.enabled = false;
+            //PlayerFPSController.current.enabled = false;
             isPaused = true;
             pauseMenu.SetActive(true);
             Cursor.visible = true;
@@ -29,7 +29,7 @@ public class PauseMenu : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
         {
-            PlayerFPSController.current.enabled = true;
+            //PlayerFPSController.current.enabled = true;
             isPaused = false;
             pauseMenu.SetActive(false);
             Cursor.visible = false;
@@ -38,10 +38,27 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void PauseGame()
+    {
+        //PlayerFPSController.current.enabled = false;
+        isPaused = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0;
+    }
+
+    public void UnpauseGame()
+    {
+        //PlayerFPSController.current.enabled = true;
+        isPaused = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
+    }
 
     public void Resume()
     {
-        PlayerFPSController.current.enabled = true;
+        //PlayerFPSController.current.enabled = true;
         isPaused = false;
         pauseMenu.SetActive(false);
         Cursor.visible = false;

@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
     [Header("Public Crap")]
     public GameObject showInventory;
     public GameObject showCrafting;
+    public PauseMenu pauseMenu;
     public static bool inventoryActive;
     public static bool craftingActive;
     [Space]
@@ -37,29 +38,36 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             showInventory.SetActive(!showInventory.activeInHierarchy);
-        }
 
-        if (showInventory.activeInHierarchy)
+            if (showInventory.activeInHierarchy)
+            {
+                pauseMenu.PauseGame();
+                inventoryActive = true;
+
+            }
+            else
+            {
+                pauseMenu.UnpauseGame();
+                inventoryActive = false;
+                showCrafting.SetActive(false);
+            }
+        }
+        if (inventoryActive)
         {
-            inventoryActive = true;
             if (Input.GetKeyDown(KeyCode.C))
             {
                 showCrafting.SetActive(!showCrafting.activeInHierarchy);
+                //trigger bools for show craftin
+                if (showCrafting.activeInHierarchy)
+                {
+                    craftingActive = true;
+                }
+                else
+                {
+                    craftingActive = false;
+                }
             }
-        }
-        else
-        {
-            inventoryActive = false;
-        }
 
-        //trigger bools for show craftin
-        if (showCrafting.activeInHierarchy)
-        {
-            craftingActive = true;
-        }
-        else
-        {
-            craftingActive = false;
         }
 
     }
