@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1978398736329709329}
   - component: {fileID: 1978398736329709328}
   - component: {fileID: 1978398736329709359}
+  - component: {fileID: 133118048}
   m_Layer: 0
   m_Name: INV_CRFT
   m_TagString: Untagged
@@ -63,6 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showInventory: {fileID: 0}
+  showCrafting: {fileID: 0}
   slots:
   - {fileID: 0}
   - {fileID: 0}
@@ -108,3 +110,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataBase: {fileID: 1978398736329709329}
   inventory: {fileID: 1978398736329709328}
+--- !u!114 &133118048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978398736329709331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6306e1f8a613984fb8631280e2d2af8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataBase: {fileID: 1978398736329709329}
+  inventory: {fileID: 1978398736329709328}
+  craftingPanel: {fileID: 0}
+  craftingSlot: {fileID: 8464511653039229284, guid: c9475f8c7efd56e43ba23481d33cf938,
+    type: 3}
+  playerLevel: 1

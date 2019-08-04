@@ -11,7 +11,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
     Inventory inventory;
     Image myImage = null;
     TextMeshProUGUI myText = null;
-    GameObject itemAmount;
+    //GameObject itemAmount;
     //Slider durabilityBar;
 
 
@@ -20,7 +20,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     void Start()
     {
-        itemAmount = transform.GetChild(1).GetComponent<GameObject>(); //(Goal is to get gameobject in 2nd child and disable/enable in regards to amount)
+        //itemAmount = transform.GetChild(1).GetComponent<GameObject>(); //(Goal is to get gameobject in 2nd child and disable/enable in regards to amount)
         inventory = GameObject.FindObjectOfType<Inventory>();
         myImage = transform.GetChild(0).GetComponent<Image>();
         myText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -49,7 +49,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
             myAmount -= amnt;
             if (myAmount <= 0)
             {
-                itemAmount.SetActive(false);
+                //itemAmount.SetActive(false);
                 myItem = null;
             }
         }

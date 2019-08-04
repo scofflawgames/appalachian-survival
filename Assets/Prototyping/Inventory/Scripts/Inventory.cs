@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
+    [Header("Public Crap")]
     public GameObject showInventory;
+    public GameObject showCrafting;
     public static bool inventoryActive;
     public static bool craftingActive;
+    [Space]
+
 
     public List<GameObject> slots = new List<GameObject>();
 
@@ -25,6 +29,7 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         showInventory.SetActive(false);
+        showCrafting.SetActive(false);
     }
 
     private void Update()
@@ -37,10 +42,24 @@ public class Inventory : MonoBehaviour
         if (showInventory.activeInHierarchy)
         {
             inventoryActive = true;
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                showCrafting.SetActive(!showCrafting.activeInHierarchy);
+            }
         }
         else
         {
             inventoryActive = false;
+        }
+
+        //trigger bools for show craftin
+        if (showCrafting.activeInHierarchy)
+        {
+            craftingActive = true;
+        }
+        else
+        {
+            craftingActive = false;
         }
 
     }

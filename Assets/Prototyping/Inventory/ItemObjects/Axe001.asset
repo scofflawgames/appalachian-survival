@@ -19,8 +19,11 @@ MonoBehaviour:
   useDurability: 0
   maxDurabilty: 0
   currentDurability: 0
-  isCraftable: 0
-  crftItems: []
-  crftAmnt: 
-  makesHowMany: 0
+  isCraftable: 1
+  crftItems:
+  - {fileID: 11400000, guid: 881e3617a33b6774ca00322b042ac458, type: 2}
+  - {fileID: 11400000, guid: 80ed7d45b3fddd341bd8242a6ba588c8, type: 2}
+  - {fileID: 11400000, guid: a0e97c4ca3d1a0d4da043ff428054421, type: 2}
+  crftAmnt: 010000000100000001000000
+  makesHowMany: 1
   MinLevelToCraft: 0
