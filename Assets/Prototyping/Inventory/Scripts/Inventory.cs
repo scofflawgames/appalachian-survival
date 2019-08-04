@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-
-
+    public GameObject showInventory;
+    public static bool inventoryActive;
+    public static bool craftingActive;
 
     public List<GameObject> slots = new List<GameObject>();
 
@@ -21,7 +22,28 @@ public class Inventory : MonoBehaviour
     public GameObject toolTipPanel = null;
     public Text toolTipText = null;
 
+    private void Start()
+    {
+        showInventory.SetActive(false);
+    }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            showInventory.SetActive(!showInventory.activeInHierarchy);
+        }
+
+        if (showInventory.activeInHierarchy)
+        {
+            inventoryActive = true;
+        }
+        else
+        {
+            inventoryActive = false;
+        }
+
+    }
 
     public bool AddItem(Item itemToAdd, int amount)
     {
