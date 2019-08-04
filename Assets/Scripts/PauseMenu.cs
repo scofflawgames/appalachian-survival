@@ -41,7 +41,7 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         //PlayerFPSController.current.enabled = false;
-        isPaused = true;
+        //isPaused = true;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
@@ -50,7 +50,7 @@ public class PauseMenu : MonoBehaviour
     public void UnpauseGame()
     {
         //PlayerFPSController.current.enabled = true;
-        isPaused = false;
+        //isPaused = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
