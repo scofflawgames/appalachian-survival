@@ -812,7 +812,7 @@ PrefabInstance:
     - target: {fileID: 2958290661181360167, guid: ca4ca44ea551be84fb9404afe9f31713,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca4ca44ea551be84fb9404afe9f31713, type: 3}
@@ -3157,6 +3157,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5844086645670507200, guid: a8e0b751d50bba148ba7564ba241e5d9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8e0b751d50bba148ba7564ba241e5d9, type: 3}
 --- !u!114 &1174651551 stripped
@@ -3316,6 +3321,7 @@ MonoBehaviour:
   wieldableItems:
   - {fileID: 1308630309}
   selectedItem: 0
+  previousSelected: 0
 --- !u!1 &1272764697
 GameObject:
   m_ObjectHideFlags: 0

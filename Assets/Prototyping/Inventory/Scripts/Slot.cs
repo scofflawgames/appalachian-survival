@@ -9,27 +9,36 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 {
 
     Inventory inventory;
+    ToolBelt toolBelt;
     Image myImage = null;
     Image selector = null;
     TextMeshProUGUI myText = null;
     //GameObject itemAmount;
     //Slider durabilityBar;
-
+    
 
     public Item myItem;
     public int myAmount;
+
+    void Awake()
+    {
+        selector = transform.GetChild(2).GetComponent<Image>();
+        selector.enabled = false;
+    }
 
     void Start()
     {
         //itemAmount = transform.GetChild(1).GetComponent<GameObject>(); //(Goal is to get gameobject in 2nd child and disable/enable in regards to amount)
         inventory = GameObject.FindObjectOfType<Inventory>();
+        toolBelt = GameObject.FindObjectOfType<ToolBelt>();
         myImage = transform.GetChild(0).GetComponent<Image>();
         myText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        selector = transform.GetChild(2).GetComponent<Image>();
+        
         //durabilityBar = transform.GetChild(2).GetComponent<Slider>();
-        selector.enabled = false;
+        
         ShowUI();
     }
+
 
     public void AddItem(Item itemToAdd, int amnt)
     {
@@ -107,6 +116,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
     {
         AddItem(inventory.draggingItem, inventory.draggingAmount);
         inventory.EndDrag();
+        toolBelt.DragAndDropCheck();
     }
 
 
