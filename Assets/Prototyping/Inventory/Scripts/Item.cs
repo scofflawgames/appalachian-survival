@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     //general info
     public string itemName;
     public Sprite itemIcon;
+    public bool isWieldable;
 
     //stackable stuff
     public bool isStackable;
