@@ -10,6 +10,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     Inventory inventory;
     Image myImage = null;
+    Image selector = null;
     TextMeshProUGUI myText = null;
     //GameObject itemAmount;
     //Slider durabilityBar;
@@ -24,7 +25,9 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
         inventory = GameObject.FindObjectOfType<Inventory>();
         myImage = transform.GetChild(0).GetComponent<Image>();
         myText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        selector = transform.GetChild(2).GetComponent<Image>();
         //durabilityBar = transform.GetChild(2).GetComponent<Slider>();
+        selector.enabled = false;
         ShowUI();
     }
 
