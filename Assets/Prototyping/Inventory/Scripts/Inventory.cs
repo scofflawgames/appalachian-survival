@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class Inventory : MonoBehaviour
     public static bool craftingActive;
     [Space]
 
-
+  
     public List<GameObject> slots = new List<GameObject>();
 
     [HideInInspector]

@@ -19,6 +19,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     public Item myItem;
     public int myAmount;
+    public int slotID;
 
     void Awake()
     {

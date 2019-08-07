@@ -10,6 +10,7 @@ public class Item : ScriptableObject
     public string itemName;
     public Sprite itemIcon;
     public bool isWieldable;
+    public int itemID;
 
     //stackable stuff
     public bool isStackable;
