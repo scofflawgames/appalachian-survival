@@ -4,23 +4,27 @@ using UnityEngine;
 
 public class LoadTest : MonoBehaviour
 {
-    public Item[] item;
-    public int[] slotIDs;
-    public int[] itemAMTs;
+    private int[] itemIDs = null;
+    private int[] slotIDs = null;
+    private int[] itemAMTs = null;
 
     public ItemDatabase dataBase;
     public Inventory inventory;
 
+    public bool runLoadTest = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < slotIDs.Length; i++)
+        if (runLoadTest)
         {
-            Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
-            currentSlot.myItem = item[i];
-            currentSlot.myAmount = itemAMTs[i];
+            for (int i = 0; i < slotIDs.Length; i++)
+            {
+                Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
+                inventory.AddItemSpecific(dataBase.GetItemById(itemIDs[i]), itemAMTs[i], slotIDs[i]);
+                currentSlot.myAmount = itemAMTs[i];
+            }
         }
-
     }
 
     // Update is called once per frame

@@ -104,6 +104,15 @@ public class Inventory : MonoBehaviour
 
     }
 
+    //add item at specific slot
+    public bool AddItemSpecific(Item itemToAdd, int amount, int slotID)
+    {
+        Slot currentSlot = slots[slotID].GetComponent<Slot>();
+        currentSlot.AddItem(itemToAdd, amount);
+        return true;
+        
+    }
+
     public void RemoveItem(Item itemToRemove, int amount)
     {
         for (int i = 0; i < slots.Count; i++)
