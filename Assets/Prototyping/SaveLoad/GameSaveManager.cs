@@ -9,10 +9,12 @@ public class GameSaveManager : MonoBehaviour
 {
     public InventoryData inventoryData;
     private Inventory inventory;
+    private ItemDatabase database;
 
     private void Start()
     {
         inventory = GameObject.FindObjectOfType<Inventory>();
+        database = GameObject.FindObjectOfType<ItemDatabase>();
     }
 
     public bool IsSaveFile()
@@ -44,10 +46,48 @@ public class GameSaveManager : MonoBehaviour
 
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/game_save/inventory_data/save001");
+
+        if (File.Exists(Application.persistentDataPath + "/game_save/inventory_data/save001"))
+        {
+            File.Delete(Application.persistentDataPath + "/game_save/inventory_data/save001");
+        }
+
+            FileStream file = File.Create(Application.persistentDataPath + "/game_save/inventory_data/save001");
         var json = JsonUtility.ToJson(inventoryData);
         bf.Serialize(file, json);
         file.Close();
+    }
+
+    public void LoadGame()
+    {
+        if (!Directory.Exists(Application.persistentDataPath + "/game_save/inventory_data"))
+        {
+            return;
+        }
+        BinaryFormatter bf = new BinaryFormatter();
+        if (File.Exists(Application.persistentDataPath + "/game_save/inventory_data/save001"))
+        {
+            FileStream file = File.Open(Application.persistentDataPath + "/game_save/inventory_data/save001", FileMode.Open);
+            JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), inventoryData);
+
+            for (int i = 0; i < inventoryData.slotIDs.Length; i++)
+            {
+                Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
+
+                if (currentSlot.myItem != null)
+                {
+                    currentSlot.RemoveItem(currentSlot.myAmount);
+                }
+
+                if (inventoryData.itemAMTs[i] > 0)
+                {
+                    inventory.AddItemSpecific(database.GetItemById(inventoryData.itemIDs[i]), inventoryData.itemAMTs[i], inventoryData.slotIDs[i]);
+                }
+                //currentSlot.myAmount = itemAMTs[i];
+            }
+
+            file.Close();
+        }
     }
 
 
