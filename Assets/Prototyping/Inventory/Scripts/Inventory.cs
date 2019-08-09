@@ -36,23 +36,30 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && !PauseMenu.isPaused)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            showInventory.SetActive(!showInventory.activeInHierarchy);
-
-            if (showInventory.activeInHierarchy)
+            if (!showInventory.activeInHierarchy)
             {
-                pauseMenu.PauseGame();
+                if (!PauseMenu.isPaused)
+                {
+                    pauseMenu.PauseGame();
+                }
                 inventoryActive = true;
-
+                showInventory.SetActive(true);
             }
             else
             {
-                pauseMenu.UnpauseGame();
+                if (!PauseMenu.isPaused)
+                {
+                    pauseMenu.UnpauseGame();
+                }
+
                 inventoryActive = false;
+                showInventory.SetActive(false);
                 showCrafting.SetActive(false);
             }
         }
+
         if (inventoryActive)
         {
             if (Input.GetKeyDown(KeyCode.C))

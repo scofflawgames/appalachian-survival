@@ -228,3 +228,17 @@ public class InventoryData
     public int[] slotIDs = null;
     public int[] itemAMTs = null;
 }
+
+[Serializable]
+public class PlayerStateData
+{
+    public Vector3 playerPos;
+    public Quaternion playerRot;
+
+}
+
+[Serializable]
+public class SaveFileDateTime
+{
+
+}
