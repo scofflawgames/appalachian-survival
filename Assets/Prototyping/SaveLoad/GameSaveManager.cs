@@ -48,6 +48,17 @@ public class GameSaveManager : MonoBehaviour
         pauseMenu.UnpauseGame();
         Inventory.inventoryActive = false;
         Inventory.craftingActive = false;
+
+        for (int i = 0; i < inventoryData.slotIDs.Length; i++)
+        {
+            Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
+
+            if (currentSlot.myItem != null)
+            {
+                currentSlot.RemoveItem(currentSlot.myAmount);
+            }
+        }
+
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
     }
 
