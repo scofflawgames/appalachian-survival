@@ -30,12 +30,13 @@ public class GameSaveManager : MonoBehaviour
     private PauseMenu pauseMenu;
     private ToolBelt toolBelt;
 
-    private void Start()
+    private void Awake()
     {
         inventory = GameObject.FindObjectOfType<Inventory>();
         database = GameObject.FindObjectOfType<ItemDatabase>();
         pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
         toolBelt = GameObject.FindObjectOfType<ToolBelt>();
+        //RemoveAllItems();
     }
 
     public bool IsSaveFile()
@@ -43,12 +44,11 @@ public class GameSaveManager : MonoBehaviour
         return Directory.Exists(Application.persistentDataPath + "/game_save");
     }
 
-    public void NewGame()
+    /// <summary>
+    /// Removes All Items from inventory
+    /// </summary>
+    public void RemoveAllItems()
     {
-        pauseMenu.UnpauseGame();
-        Inventory.inventoryActive = false;
-        Inventory.craftingActive = false;
-
         for (int i = 0; i < inventoryData.slotIDs.Length; i++)
         {
             Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
@@ -58,7 +58,15 @@ public class GameSaveManager : MonoBehaviour
                 currentSlot.RemoveItem(currentSlot.myAmount);
             }
         }
+    }
 
+
+    public void NewGame()
+    {
+        RemoveAllItems();
+        pauseMenu.UnpauseGame();
+        Inventory.inventoryActive = false;
+        Inventory.craftingActive = false;
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
     }
 
@@ -92,7 +100,7 @@ public class GameSaveManager : MonoBehaviour
             File.Delete(Application.persistentDataPath + "/game_save/" + saveFile + "/" + saveType);
         }
 
-            FileStream file = File.Create(Application.persistentDataPath + "/game_save/" + saveFile + "/" + saveType);
+        FileStream file = File.Create(Application.persistentDataPath + "/game_save/" + saveFile + "/" + saveType);
         var json = JsonUtility.ToJson(inventoryData);
         bf.Serialize(file, json);
         file.Close();
@@ -108,6 +116,8 @@ public class GameSaveManager : MonoBehaviour
 
     public void LoadGame(string saveFile, string saveType)
     {
+        loadMenu.SetActive(false);
+
         if (!Directory.Exists(Application.persistentDataPath + "/game_save/" + saveFile))
         {
             return;
@@ -118,6 +128,8 @@ public class GameSaveManager : MonoBehaviour
             FileStream file = File.Open(Application.persistentDataPath + "/game_save/" + saveFile + "/" + saveType, FileMode.Open);
             JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), inventoryData);
 
+            file.Close();
+
             for (int i = 0; i < inventoryData.slotIDs.Length; i++)
             {
                 Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
@@ -127,16 +139,15 @@ public class GameSaveManager : MonoBehaviour
                     currentSlot.RemoveItem(currentSlot.myAmount);
                 }
 
-                if (inventoryData.itemAMTs[i] > 0)
-                {
-                    inventory.AddItemSpecific(database.GetItemById(inventoryData.itemIDs[i]), inventoryData.itemAMTs[i], inventoryData.slotIDs[i]);
-                }
-                //currentSlot.myAmount = itemAMTs[i];
+                //if (inventoryData.itemAMTs[i] > 0)
+                // {
+                inventory.AddItemSpecific(database.GetItemById(inventoryData.itemIDs[i]), inventoryData.itemAMTs[i], inventoryData.slotIDs[i]);
+                //}
             }
-            toolBelt.DragAndDropCheck();
-            file.Close();
 
-            loadMenu.SetActive(false);
+
+            toolBelt.DragAndDropCheck();
+            
 
             if (!PauseMenu.isPaused)
             {
