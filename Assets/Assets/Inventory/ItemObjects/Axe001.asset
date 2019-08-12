@@ -15,6 +15,7 @@ MonoBehaviour:
   itemName: Axe001
   itemIcon: {fileID: 21300000, guid: 9504454b9444287419464c01cce598a9, type: 3}
   isWieldable: 1
+  itemID: 1
   isStackable: 0
   maxStackAmount: 0
   useDurability: 0

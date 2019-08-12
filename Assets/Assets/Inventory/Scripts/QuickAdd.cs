@@ -15,22 +15,22 @@ public class QuickAdd : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                inventory.AddItem(dataBase.GetItemById(0), 1);
+                inventory.AddItem(dataBase.GetItemById(1), 1);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                inventory.AddItem(dataBase.GetItemById(1), 1);
+                inventory.AddItem(dataBase.GetItemById(2), 1);
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
-                inventory.AddItem(dataBase.GetItemById(2), 1);
+                inventory.AddItem(dataBase.GetItemById(3), 1);
             }
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                inventory.AddItem(dataBase.GetItemById(3), 1);
+                inventory.AddItem(dataBase.GetItemById(4), 1);
             }
         }
 

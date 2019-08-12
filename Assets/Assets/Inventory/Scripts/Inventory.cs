@@ -115,7 +115,10 @@ public class Inventory : MonoBehaviour
     public bool AddItemSpecific(Item itemToAdd, int amount, int slotID)
     {
         Slot currentSlot = slots[slotID].GetComponent<Slot>();
-        currentSlot.AddItem(itemToAdd, amount);
+        if (itemToAdd.itemID > 0)
+        {
+            currentSlot.AddItem(itemToAdd, amount);
+        }
         return true;
         
     }
