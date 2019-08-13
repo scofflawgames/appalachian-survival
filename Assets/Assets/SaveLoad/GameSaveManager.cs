@@ -85,6 +85,9 @@ public class GameSaveManager : MonoBehaviour
 
     public void SaveGame(string saveFile, string saveType)
     {
+        playerFPSController = GameObject.FindObjectOfType<PlayerFPSController>();
+        playerObject = playerFPSController.gameObject;
+
         if (!IsSaveFile())
         {
             Directory.CreateDirectory(Application.persistentDataPath + "/game_save");
@@ -210,12 +213,10 @@ public class GameSaveManager : MonoBehaviour
             file.Close();
 
             loadMenu.SetActive(false);
+            pauseMenu.pauseMenu.SetActive(false);
+            PauseMenu.isPaused = false;
+            pauseMenu.UnpauseGame();
 
-            if (!PauseMenu.isPaused)
-            {
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-            }
         }
     }
 

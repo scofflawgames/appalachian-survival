@@ -40,23 +40,25 @@ public class Inventory : MonoBehaviour
         {
             if (!showInventory.activeInHierarchy)
             {
+                inventoryActive = true;
+                showInventory.SetActive(true);
+
                 if (!PauseMenu.isPaused)
                 {
                     pauseMenu.PauseGame();
                 }
-                inventoryActive = true;
-                showInventory.SetActive(true);
             }
-            else
+            else if(showInventory.activeInHierarchy)
             {
-                if (!PauseMenu.isPaused)
-                {
-                    pauseMenu.UnpauseGame();
-                }
 
                 inventoryActive = false;
                 showInventory.SetActive(false);
                 showCrafting.SetActive(false);
+
+                if (!PauseMenu.isPaused)
+                {
+                    pauseMenu.UnpauseGame();
+                }
             }
         }
 
