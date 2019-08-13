@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Public Shit")]
+    public GameObject playerObject;
+    public Vector3 playerPos;
+    public Quaternion playerRot;
+
+    void Awake()
     {
-        
+        //spawn in player
+        //Instantiate(playerObject, playerPos, playerRot);
+        GameObject thePlayer = Instantiate(playerObject, playerPos, playerRot);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+
     }
+
+    public void SpawnPlayer(Vector3 playerPosition, Quaternion playerRotation)
+    {
+        GameObject thePlayer = Instantiate(playerObject, playerPosition, playerRotation);
+    }
+
+
+
 }

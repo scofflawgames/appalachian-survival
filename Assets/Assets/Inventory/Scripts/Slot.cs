@@ -10,7 +10,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     Inventory inventory;
     ToolBelt toolBelt;
-    Image myImage = null;
+    public Image myImage = null;
     Image selector = null;
     TextMeshProUGUI myText = null;
     //GameObject itemAmount;
@@ -19,7 +19,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     public Item myItem;
     public int myAmount;
-    public int slotID;
+    //public int slotID;
 
     void Awake()
     {
@@ -69,14 +69,22 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
         ShowUI();
     }
 
-    void ShowUI()
+    public void ShowUI()
     {
         if (myItem != null)
         {
-            myImage.enabled = true;
-            myText.enabled = true;
-            myImage.sprite = myItem.itemIcon;
+            if (myImage != null)
+            {
+                myImage.enabled = true;
+                myImage.sprite = myItem.itemIcon;
+            }
+
+            if (myText != null)
+            { 
+            myText.enabled = true;           
             myText.text = myAmount.ToString();
+            }
+
             if (myItem.useDurability)
             {
                // durabilityBar.gameObject.SetActive(true);
@@ -90,8 +98,16 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
         }
         else
         {
-            myImage.enabled = false;
-            myText.enabled = false;
+            if (myImage != null)
+            {
+                myImage.enabled = false;
+            }
+
+            if (myText != null)
+            {
+                myText.enabled = false;
+            }
+
             //durabilityBar.gameObject.SetActive(false);
         }
     }

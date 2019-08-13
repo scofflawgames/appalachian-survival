@@ -10,6 +10,7 @@ using TMPro;
 public class GameSaveManager : MonoBehaviour
 {
     public InventoryData inventoryData;
+    public PlayerStateData playerStateData;
 
     [Header("Save/Load Menus")]
     public GameObject saveMenu;
@@ -26,9 +27,15 @@ public class GameSaveManager : MonoBehaviour
     public TextMeshProUGUI load003;
 
     private Inventory inventory;
+    private int inventorySize = 24;
     private ItemDatabase database;
     private PauseMenu pauseMenu;
     private ToolBelt toolBelt;
+
+    //player object
+    public PlayerFPSController playerFPSController;
+    public GameObject playerObject;
+    public GameObject newPlayerObject;
 
     private void Awake()
     {
@@ -37,6 +44,12 @@ public class GameSaveManager : MonoBehaviour
         pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
         toolBelt = GameObject.FindObjectOfType<ToolBelt>();
         //RemoveAllItems();
+    }
+
+    private void Start()
+    {
+        playerFPSController = GameObject.FindObjectOfType<PlayerFPSController>();
+        playerObject = playerFPSController.gameObject;
     }
 
     public bool IsSaveFile()
@@ -49,7 +62,7 @@ public class GameSaveManager : MonoBehaviour
     /// </summary>
     public void RemoveAllItems()
     {
-        for (int i = 0; i < inventoryData.slotIDs.Length; i++)
+        for (int i = 0; i < inventorySize; i++)
         {
             Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
 
@@ -81,16 +94,29 @@ public class GameSaveManager : MonoBehaviour
             Directory.CreateDirectory(Application.persistentDataPath + "/game_save/" + saveFile);
         }
 
-        for (int i = 0; i < 24; i++)
+
+        //handle types of save files
+        if (saveType == "inventory.txt")
         {
-            Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
-            if (currentSlot.myItem != null)
+            for (int i = 0; i < inventorySize; i++)
             {
-                inventoryData.itemIDs[i] = currentSlot.myItem.itemID;
-                inventoryData.slotIDs[i] = i;
-                inventoryData.itemAMTs[i] = currentSlot.myAmount;
+                Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
+                //inventoryData.slotIDs[i] = currentSlot.slotID;
+
+                if (currentSlot.myItem != null)
+                {
+                    inventoryData.itemIDs[i] = currentSlot.myItem.itemID;                  
+                    inventoryData.itemAMTs[i] = currentSlot.myAmount;
+                }
             }
         }
+
+        if (saveType == "player.txt")
+        {
+            playerStateData.playerPos = playerObject.transform.position;
+            playerStateData.playerRot = playerObject.transform.rotation;
+        }
+        //end of handling types of save files
 
 
         BinaryFormatter bf = new BinaryFormatter();
@@ -101,12 +127,25 @@ public class GameSaveManager : MonoBehaviour
         }
 
         FileStream file = File.Create(Application.persistentDataPath + "/game_save/" + saveFile + "/" + saveType);
-        var json = JsonUtility.ToJson(inventoryData);
-        bf.Serialize(file, json);
+
+        //different saveTypes fo Json-ing
+        if (saveType == "inventory.txt")
+        {
+            var json = JsonUtility.ToJson(inventoryData);
+            bf.Serialize(file, json);
+        }
+
+        if (saveType == "player.txt")
+        {
+            var json = JsonUtility.ToJson(playerStateData);
+            bf.Serialize(file, json);
+        }
+        //end of jsoning
+
+
         file.Close();
 
         saveMenu.SetActive(false);
-
         if (!PauseMenu.isPaused)
         {
             Cursor.visible = false;
@@ -116,7 +155,6 @@ public class GameSaveManager : MonoBehaviour
 
     public void LoadGame(string saveFile, string saveType)
     {
-        loadMenu.SetActive(false);
 
         if (!Directory.Exists(Application.persistentDataPath + "/game_save/" + saveFile))
         {
@@ -126,28 +164,52 @@ public class GameSaveManager : MonoBehaviour
         if (File.Exists(Application.persistentDataPath + "/game_save/" + saveFile + "/" + saveType))
         {
             FileStream file = File.Open(Application.persistentDataPath + "/game_save/" + saveFile + "/" + saveType, FileMode.Open);
-            JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), inventoryData);
+            
 
-            file.Close();
-
-            for (int i = 0; i < inventoryData.slotIDs.Length; i++)
+            //handle save types
+            if (saveType == "inventory.txt")
             {
-                Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
+                JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), inventoryData);
 
-                if (currentSlot.myItem != null)
+                //removing old inventory
+                for (int i = 0; i < inventorySize; i++)
                 {
-                    currentSlot.RemoveItem(currentSlot.myAmount);
+                    Slot currentSlot = inventory.slots[i].GetComponent<Slot>();
+                    currentSlot.myAmount = 0;
+
+                    if (currentSlot.myImage != null)
+                    {
+                        currentSlot.myImage.enabled = false;
+                    }
+
+                    currentSlot.myItem = null;
+                    currentSlot.ShowUI();
                 }
 
-                //if (inventoryData.itemAMTs[i] > 0)
-                // {
-                inventory.AddItemSpecific(database.GetItemById(inventoryData.itemIDs[i]), inventoryData.itemAMTs[i], inventoryData.slotIDs[i]);
-                //}
+                //adding the new inventory
+                for (int i = 0; i < inventorySize; i++)
+                {
+
+                    if (inventoryData.itemIDs[i] > 0)
+                    {
+                        inventory.AddItemSpecific(database.GetItemById(inventoryData.itemIDs[i]), inventoryData.itemAMTs[i], i);
+                    }
+                }
+
+            }
+
+            if (saveType == "player.txt")
+            {
+                JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), playerStateData);
+                Destroy(playerObject);
+                playerObject = Instantiate(newPlayerObject, playerStateData.playerPos, playerStateData.playerRot);
             }
 
 
             toolBelt.DragAndDropCheck();
-            
+            file.Close();
+
+            loadMenu.SetActive(false);
 
             if (!PauseMenu.isPaused)
             {
@@ -176,32 +238,38 @@ public class GameSaveManager : MonoBehaviour
     public void Save001()
     {
         SaveGame("save001", "inventory.txt");
+        SaveGame("save001", "player.txt");
     }
 
     public void Save002()
     {
         SaveGame("save002", "inventory.txt");
+        SaveGame("save002", "player.txt");
     }
 
     public void Save003()
     {
         SaveGame("save003", "inventory.txt");
+        SaveGame("save003", "player.txt");
     }
 
     //load methods
     public void Load001()
     {
         LoadGame("save001", "inventory.txt");
+        LoadGame("save001", "player.txt");
     }
 
     public void Load002()
     {
         LoadGame("save002", "inventory.txt");
+        LoadGame("save002", "player.txt");
     }
 
     public void Load003()
     {
         LoadGame("save003", "inventory.txt");
+        LoadGame("save003", "player.txt");
     }
 
     //checks for save files
@@ -247,7 +315,6 @@ public class GameSaveManager : MonoBehaviour
 public class InventoryData
 {
     public int[] itemIDs = null;
-    public int[] slotIDs = null;
     public int[] itemAMTs = null;
 }
 
