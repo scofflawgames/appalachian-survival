@@ -30,7 +30,6 @@ public class PauseMenu : MonoBehaviour
         {
             PlayerFPSController.current.enabled = false;
             isPaused = true;
-            print("Paused is " + isPaused);
             pauseMenu.SetActive(true);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
@@ -40,7 +39,6 @@ public class PauseMenu : MonoBehaviour
         {
             PlayerFPSController.current.enabled = true;
             isPaused = false;
-            print("Paused is " + isPaused);
             saveMenu.SetActive(false);
             loadMenu.SetActive(false);
             pauseMenu.SetActive(false);

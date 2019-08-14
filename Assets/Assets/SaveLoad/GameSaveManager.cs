@@ -123,7 +123,7 @@ public class GameSaveManager : MonoBehaviour
 
         if (saveType == "dateTime.txt")
         {
-            saveFileDateTime.date = DateTime.Now.ToString("hh:mm:ss");
+            saveFileDateTime.time = DateTime.Now.ToString("hh:mm:ss");
         }
         //end of handling types of save files
 
@@ -213,13 +213,14 @@ public class GameSaveManager : MonoBehaviour
 
             }
 
+
+            //handles loading for playerState
             if (saveType == "player.txt")
             {
                 JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), playerStateData);
                 Destroy(playerObject);
                 playerObject = Instantiate(newPlayerObject, playerStateData.playerPos, playerStateData.playerRot);
             }
-
 
             toolBelt.DragAndDropCheck();
             file.Close();
@@ -296,19 +297,20 @@ public class GameSaveManager : MonoBehaviour
     //checks for save files
     public void SaveButtonText()
     {
+
         if (Directory.Exists(Application.persistentDataPath + "/game_save/save001"))
         {
-            save001.text = "Save001";
-        }
+            GetDateTimeSave("save001");       
+        } 
 
         if (Directory.Exists(Application.persistentDataPath + "/game_save/save002"))
         {
-            save002.text = "Save002";
+            GetDateTimeSave("save002");
         }
 
         if (Directory.Exists(Application.persistentDataPath + "/game_save/save003"))
         {
-            save003.text = "Save003";
+            GetDateTimeSave("save003");
         }
     }
 
@@ -316,18 +318,52 @@ public class GameSaveManager : MonoBehaviour
     {
         if (Directory.Exists(Application.persistentDataPath + "/game_save/save001"))
         {
-            load001.text = "Save001";
+            GetDateTimeSave("save001");
         }
 
         if (Directory.Exists(Application.persistentDataPath + "/game_save/save002"))
         {
-            load002.text = "Save002";
+            GetDateTimeSave("save002");
         }
 
         if (Directory.Exists(Application.persistentDataPath + "/game_save/save003"))
         {
-            load003.text = "Save003";
+            GetDateTimeSave("save003");
         }
+    }
+
+    //gets and applies date/time data to saveFile BUTTON!!!
+    public void GetDateTimeSave(string saveFile)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        if (File.Exists(Application.persistentDataPath + "/game_save/" + saveFile + "/dateTime.txt"))
+        {
+            FileStream file = File.Open(Application.persistentDataPath + "/game_save/" + saveFile + "/dateTime.txt", FileMode.Open);
+            JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), saveFileDateTime);
+            file.Close();
+        }
+
+        //go back and refactor this to take in last 3 characters in saveFile string and apply to the button text
+        if (saveFile == "save001")
+        {
+            save001.text = saveFileDateTime.time;
+            load001.text = saveFileDateTime.time;
+        }
+
+        if (saveFile == "save002")
+        {
+            save002.text = saveFileDateTime.time;
+            load002.text = saveFileDateTime.time;
+        }
+
+        if (saveFile == "save003")
+        {
+            save003.text = saveFileDateTime.time;
+            load003.text = saveFileDateTime.time;
+        }
+
+
+
     }
 
 }
@@ -350,5 +386,5 @@ public class PlayerStateData
 [Serializable]
 public class SaveFileDateTime
 {
-    public string date;
+    public string time;
 }
