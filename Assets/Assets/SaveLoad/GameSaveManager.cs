@@ -11,6 +11,7 @@ public class GameSaveManager : MonoBehaviour
 {
     public InventoryData inventoryData;
     public PlayerStateData playerStateData;
+    public SaveFileDateTime saveFileDateTime;
 
     [Header("Save/Load Menus")]
     public GameObject saveMenu;
@@ -119,6 +120,11 @@ public class GameSaveManager : MonoBehaviour
             playerStateData.playerPos = playerObject.transform.position;
             playerStateData.playerRot = playerObject.transform.rotation;
         }
+
+        if (saveType == "dateTime.txt")
+        {
+            saveFileDateTime.date = DateTime.Now.ToString("hh:mm:ss");
+        }
         //end of handling types of save files
 
 
@@ -141,6 +147,12 @@ public class GameSaveManager : MonoBehaviour
         if (saveType == "player.txt")
         {
             var json = JsonUtility.ToJson(playerStateData);
+            bf.Serialize(file, json);
+        }
+
+        if (saveType == "dateTime.txt")
+        {
+            var json = JsonUtility.ToJson(saveFileDateTime);
             bf.Serialize(file, json);
         }
         //end of jsoning
@@ -222,12 +234,14 @@ public class GameSaveManager : MonoBehaviour
 
     public void SaveMenu()
     {
+        loadMenu.SetActive(false);
         saveMenu.SetActive(true);
         SaveButtonText();
     }
 
     public void LoadMenu()
     {
+        saveMenu.SetActive(false);
         loadMenu.SetActive(true);
         LoadButtonText();
     }
@@ -238,20 +252,26 @@ public class GameSaveManager : MonoBehaviour
     //methods for the save/load buttons
     public void Save001()
     {
+        string date = DateTime.Now.ToString("hh:mm:ss");
+        print(date);
+
         SaveGame("save001", "inventory.txt");
         SaveGame("save001", "player.txt");
+        SaveGame("save001", "dateTime.txt");
     }
 
     public void Save002()
     {
         SaveGame("save002", "inventory.txt");
         SaveGame("save002", "player.txt");
+        SaveGame("save002", "dateTime.txt");
     }
 
     public void Save003()
     {
         SaveGame("save003", "inventory.txt");
         SaveGame("save003", "player.txt");
+        SaveGame("save003", "dateTime.txt");
     }
 
     //load methods
@@ -330,5 +350,5 @@ public class PlayerStateData
 [Serializable]
 public class SaveFileDateTime
 {
-
+    public string date;
 }

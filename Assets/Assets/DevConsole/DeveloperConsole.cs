@@ -91,18 +91,16 @@ namespace Console
             {
                 consoleCanvas.gameObject.SetActive(!consoleCanvas.gameObject.activeInHierarchy);
                 consoleInput.ActivateInputField();
-                if (consoleCanvas.gameObject.activeInHierarchy)
+                if (consoleCanvas.gameObject.activeInHierarchy && !PauseMenu.isPaused)
                 {
                     PlayerFPSController.current.enabled = false;
-                    PauseMenu.isPaused = true;
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
                     Time.timeScale = 0;
                 }
-                else
+                else if(!PauseMenu.isPaused)
                 {
                     PlayerFPSController.current.enabled = true;
-                    PauseMenu.isPaused = false;
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;
                     Time.timeScale = 1;
