@@ -18,6 +18,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject invMenu;
     public GameObject craftMenu;
 
+    [Header("Post Processing")]
+    public GameObject pausePostProcessing;
+
     private void Start()
     {
         Cursor.visible = false;
@@ -28,6 +31,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !isPaused)
         {
+            pausePostProcessing.SetActive(true);
             PlayerFPSController.current.enabled = false;
             isPaused = true;
             pauseMenu.SetActive(true);
@@ -37,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && isPaused)
         {
+            pausePostProcessing.SetActive(false);
             PlayerFPSController.current.enabled = true;
             isPaused = false;
             saveMenu.SetActive(false);
@@ -65,6 +70,7 @@ public class PauseMenu : MonoBehaviour
 
     public void UnpauseGame()
     {
+        pausePostProcessing.SetActive(false);
         PlayerFPSController.current.enabled = true;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -73,6 +79,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        pausePostProcessing.SetActive(false);
         saveMenu.SetActive(false);
         loadMenu.SetActive(false);
         PlayerFPSController.current.enabled = true;

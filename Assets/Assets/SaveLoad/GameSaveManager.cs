@@ -224,8 +224,11 @@ public class GameSaveManager : MonoBehaviour
             if (saveType == "player.txt")
             {
                 JsonUtility.FromJsonOverwrite((string)bf.Deserialize(file), playerStateData);
-                Destroy(playerObject);
-                playerObject = Instantiate(newPlayerObject, playerStateData.playerPos, playerStateData.playerRot);
+                playerObject.transform.position = playerStateData.playerPos;
+                playerObject.transform.rotation = playerStateData.playerRot;
+
+                //Destroy(playerObject);
+                //playerObject = Instantiate(newPlayerObject, playerStateData.playerPos, playerStateData.playerRot);
             }
 
             toolBelt.DragAndDropCheck();

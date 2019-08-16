@@ -19,7 +19,7 @@ public class WeaponChange : MonoBehaviour
 
     public void playerAnimation()
     {
-        //fpsArmsAnim = GetComponent<Animator>();
+        fpsArmsAnim = GetComponent<Animator>();
         fpsArmsAnim.Play("WeaponSwitch");
     }
 
@@ -28,11 +28,13 @@ public class WeaponChange : MonoBehaviour
 
         if (equippableItemID == 1)
         {
+            fpsArmsAnim.SetBool("EmptyHanded", false);
             equippable[0].SetActive(true);
         }
         else
         {
-            equippable[0].SetActive(false);
+            fpsArmsAnim.SetBool("EmptyHanded", true);
+            equippable[0].SetActive(false);            
         }
     }
 

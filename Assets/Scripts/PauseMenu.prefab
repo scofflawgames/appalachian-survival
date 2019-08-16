@@ -118,7 +118,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1002206270}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1302547878
@@ -318,7 +329,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1308393139}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: LoadMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1753408941
@@ -597,7 +619,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1892357424}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: SaveMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &5844086644539286246
@@ -613,7 +646,6 @@ GameObject:
   - component: {fileID: 5844086644539286244}
   - component: {fileID: 5844086644539286247}
   - component: {fileID: 1174651551}
-  - component: {fileID: 1174651552}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -713,19 +745,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2490061aad08aaa469b28c4c1aa966a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lockCursor: 1
   pauseMenu: {fileID: 5844086645670507200}
---- !u!114 &1174651552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5844086644539286246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20987e65ecfa9064da1a186151372706, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  saveMenu: {fileID: 0}
+  loadMenu: {fileID: 0}
+  invMenu: {fileID: 0}
+  craftMenu: {fileID: 0}
+  pausePostProcessing: {fileID: 0}
 --- !u!1 &5844086644803524936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,7 +1112,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5844086645670507201
 RectTransform:
   m_ObjectHideFlags: 0
