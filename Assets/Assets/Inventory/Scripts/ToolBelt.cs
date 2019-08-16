@@ -2,22 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DeepWolf.HungerThirstSystem;
 
 public class ToolBelt : MonoBehaviour
 {
     public List<GameObject> toolBeltSlots = new List<GameObject>();
-
-    
+  
 
     public int selectedItem = 0;
     public int previousSelected = 0;
     //private int maxItems = 5;
+
+    private HungerThirst hungerThirst;
+    private PlayerManager playerManager;
+    private Inventory inventory;
+
 
     Image selectorImage = null;
         
     // Start is called before the first frame update
     void Start()
     {
+        playerManager = FindObjectOfType<PlayerManager>();
+        hungerThirst = FindObjectOfType<HungerThirst>();
+
         selectorImage = toolBeltSlots[selectedItem].transform.GetChild(2).GetComponent<Image>();
         selectorImage.enabled = true;
     }
@@ -26,7 +34,19 @@ public class ToolBelt : MonoBehaviour
     void Update()
     {
         MouseScrollSelector();
-        ItemSelector();
+        //ItemSelector();
+
+        if (Input.GetMouseButtonDown(0) && !Inventory.inventoryActive)
+        {
+            Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
+            if (currentSlot.myItem != null && currentSlot.myItem.isConsumable && currentSlot.myItem.isFood)
+            {
+                hungerThirst.AddHunger(-currentSlot.myItem.foodAmount);
+                playerManager.RefreshHunger();
+                print("You just ate 1 " + currentSlot.myItem.itemName + " that you found by the toilet.. Congratulations!");
+                currentSlot.RemoveItem(1);             
+            }
+        }
     }
 
     public void ItemSelector()

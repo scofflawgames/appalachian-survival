@@ -36,7 +36,7 @@ public class Item : ScriptableObject
     public bool isConsumable;
     public bool isFood;
     public bool isWater;
-    public int foodAmount;
-    public int waterAmount;
+    public float foodAmount;
+    public float waterAmount;
 
 }

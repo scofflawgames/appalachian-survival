@@ -5,8 +5,14 @@ using UnityEngine;
 public class QuickAdd : MonoBehaviour
 {
 
-    public ItemDatabase dataBase;
-    public Inventory inventory;
+    private ItemDatabase dataBase;
+    private Inventory inventory;
+
+    private void Start()
+    {
+        inventory = FindObjectOfType<Inventory>();
+        dataBase = FindObjectOfType<ItemDatabase>();
+    }
 
     // Update is called once per frame
     void Update()

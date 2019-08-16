@@ -18,7 +18,6 @@ public class Teleport : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerObject = GameObject.FindGameObjectWithTag("Player");
-            print("Player has made contact, teleport his ass to " + destination);
             playerObject.transform.position = destination.position;
         }
     }

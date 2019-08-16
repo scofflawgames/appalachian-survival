@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cedac77ec39f2d449657abf75f11cd0, type: 3}
-  m_Name: Rope001
+  m_Name: 2_Rope001
   m_EditorClassIdentifier: 
   itemName: Rope
   itemIcon: {fileID: 21300000, guid: 8d56f61b19bd3f14d85bd8c235849f03, type: 3}
@@ -26,3 +26,8 @@ MonoBehaviour:
   crftAmnt: 
   makesHowMany: 0
   MinLevelToCraft: 0
+  isConsumable: 0
+  isFood: 0
+  isWater: 0
+  foodAmount: 0
+  waterAmount: 0

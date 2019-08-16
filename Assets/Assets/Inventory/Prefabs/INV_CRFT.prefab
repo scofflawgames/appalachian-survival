@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1978398736329709328}
   - component: {fileID: 1978398736329709359}
   - component: {fileID: 133118048}
+  - component: {fileID: 1269841128}
   m_Layer: 0
   m_Name: INV_CRFT
   m_TagString: Untagged
@@ -47,10 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataBaseItems:
+  - {fileID: 11400000, guid: 0dbd7e6e109b31546bc7ddbdb8c77919, type: 2}
   - {fileID: 11400000, guid: db72cbc1e0d0ef54ca757f6df3ff9f7d, type: 2}
   - {fileID: 11400000, guid: 881e3617a33b6774ca00322b042ac458, type: 2}
   - {fileID: 11400000, guid: 80ed7d45b3fddd341bd8242a6ba588c8, type: 2}
   - {fileID: 11400000, guid: a0e97c4ca3d1a0d4da043ff428054421, type: 2}
+  - {fileID: 11400000, guid: 63a76536e554d6546804373a3883158d, type: 2}
 --- !u!114 &1978398736329709328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,8 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab3fe9d2da885c4cb80e0955f5c9de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataBase: {fileID: 1978398736329709329}
-  inventory: {fileID: 1978398736329709328}
 --- !u!114 &133118048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,3 +130,24 @@ MonoBehaviour:
   craftingSlot: {fileID: 8464511653039229284, guid: c9475f8c7efd56e43ba23481d33cf938,
     type: 3}
   playerLevel: 1
+--- !u!114 &1269841128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978398736329709331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0065ef7c4dc63f49a3bfbf2c1529373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolBeltSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  selectedItem: 0
+  previousSelected: 0
