@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4750591539927357364, guid: 2040bf6d11143cf48a45d8871d0366c0, type: 3}
+  - {fileID: 2100000, guid: 558ca333caf7f3f458d2aa767f26bb38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,7 +134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6067409850511221803, guid: 2040bf6d11143cf48a45d8871d0366c0, type: 3}
+  - {fileID: 2100000, guid: 558ca333caf7f3f458d2aa767f26bb38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -211,7 +211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1711819862580464344, guid: 2040bf6d11143cf48a45d8871d0366c0, type: 3}
+  - {fileID: 2100000, guid: 558ca333caf7f3f458d2aa767f26bb38, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -241,6 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8282396003185000918}
   - component: {fileID: 4002098659635950697}
+  - component: {fileID: 1811763529}
   m_Layer: 0
   m_Name: Mushroom_model
   m_TagString: Untagged
@@ -255,7 +256,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4948227357193532357}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 35.48, y: 0, z: 15.26}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
@@ -278,3 +279,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.351196, y: 13.319884, z: 7.0594025}
   m_Center: {x: 0.36491394, y: 6.1599417, z: 0.09403229}
+--- !u!114 &1811763529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4948227357193532357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ff66d2af3eafc4c99b55980bb89222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

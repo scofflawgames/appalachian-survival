@@ -79,6 +79,7 @@ public class GameSaveManager : MonoBehaviour
     {
         RemoveAllItems();
         pauseMenu.UnpauseGame();
+        PauseMenu.isPaused = false;
         Inventory.inventoryActive = false;
         Inventory.craftingActive = false;
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);

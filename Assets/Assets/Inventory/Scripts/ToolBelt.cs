@@ -36,7 +36,7 @@ public class ToolBelt : MonoBehaviour
         MouseScrollSelector();
         //ItemSelector();
 
-        if (Input.GetMouseButtonDown(0) && !Inventory.inventoryActive)
+        if (Input.GetMouseButtonDown(0) && !Inventory.inventoryActive && !PauseMenu.isPaused)
         {
             Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
             if (currentSlot.myItem != null && currentSlot.myItem.isConsumable && currentSlot.myItem.isFood)
