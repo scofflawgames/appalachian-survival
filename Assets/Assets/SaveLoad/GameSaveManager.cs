@@ -33,10 +33,11 @@ public class GameSaveManager : MonoBehaviour
     private PauseMenu pauseMenu;
     private ToolBelt toolBelt;
 
-    //player object
+    [Header("Player References")]
     public PlayerFPSController playerFPSController;
     public GameObject playerObject;
     public GameObject newPlayerObject;
+    public Harvest harvest;
 
     private void Awake()
     {
@@ -44,13 +45,15 @@ public class GameSaveManager : MonoBehaviour
         database = GameObject.FindObjectOfType<ItemDatabase>();
         pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
         toolBelt = GameObject.FindObjectOfType<ToolBelt>();
-        //RemoveAllItems();
+        //RemoveAllItems(); 
     }
 
     private void Start()
     {
         playerFPSController = GameObject.FindObjectOfType<PlayerFPSController>();
         playerObject = playerFPSController.gameObject;
+        harvest = GameObject.FindObjectOfType<Harvest>();
+        harvest.pickUpPrompt.SetActive(true);
     }
 
     public bool IsSaveFile()
@@ -230,6 +233,10 @@ public class GameSaveManager : MonoBehaviour
             pauseMenu.pauseMenu.SetActive(false);
             PauseMenu.isPaused = false;
             pauseMenu.UnpauseGame();
+
+            //set pickupPrompt to active
+            harvest = GameObject.FindObjectOfType<Harvest>();
+            harvest.pickUpPrompt.SetActive(true);
 
         }
     }

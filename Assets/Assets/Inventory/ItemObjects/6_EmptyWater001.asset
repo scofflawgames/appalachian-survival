@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cedac77ec39f2d449657abf75f11cd0, type: 3}
-  m_Name: 5_Mushrooms001
+  m_Name: 6_EmptyWater001
   m_EditorClassIdentifier: 
-  itemName: Mushrooms
-  itemIcon: {fileID: 21300000, guid: 7375acda709c77842a1a280c3c9a6e07, type: 3}
+  itemName: Empty Water Bottle
+  itemIcon: {fileID: 21300000, guid: b328f8d965a25e1408cfb2391d514765, type: 3}
   isWieldable: 0
-  itemID: 5
+  itemID: 6
   isStackable: 1
   maxStackAmount: 99
   useDurability: 0
@@ -26,8 +26,8 @@ MonoBehaviour:
   crftAmnt: 
   makesHowMany: 0
   MinLevelToCraft: 0
-  isConsumable: 1
-  isFood: 1
+  isConsumable: 0
+  isFood: 0
   isWater: 0
-  foodAmount: 10
+  foodAmount: 0
   waterAmount: 0

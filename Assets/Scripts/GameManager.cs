@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     {
         //spawn in player
         //Instantiate(playerObject, playerPos, playerRot);
-        //GameObject thePlayer = Instantiate(playerObject, playerPos, playerRot);
+        GameObject thePlayer = Instantiate(playerObject, playerPos, playerRot);
     }
 
 

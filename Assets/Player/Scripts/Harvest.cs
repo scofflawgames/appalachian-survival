@@ -7,19 +7,27 @@ using TMPro;
 public class Harvest : MonoBehaviour
 {
     [Header("Public References")]
-    public GameObject pickUpPrompt;
+    [SerializeField]
+    public GameObject pickUpPrompt = null;
+   
 
     private TextMeshProUGUI pickUpPromptText;
-    private Camera cam;
+    public Camera cam;
     private ItemDatabase itemDatabase;
     private Inventory inventory;
+    
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        pickUpPrompt = GameObject.FindGameObjectWithTag("PickupPrompt");
+        cam = GetComponent<Camera>();
+    }
+
     void Start()
     {
-        pickUpPromptText = pickUpPrompt.GetComponent<TextMeshProUGUI>();
 
-        cam = GetComponent<Camera>();
+        pickUpPromptText = pickUpPrompt.GetComponent<TextMeshProUGUI>();
+        //pickUpPrompt.SetActive(false);        
         inventory = FindObjectOfType<Inventory>();
         itemDatabase = FindObjectOfType<ItemDatabase>();
     }
@@ -57,6 +65,7 @@ public class Harvest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            print("Harvested " + objectAMT + " " + objectName + "(S)");
             //some kind of audio for harvesting
             inventory.AddItem(itemDatabase.GetItemById(objectID), objectAMT);
             Destroy(harvestObject);

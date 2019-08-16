@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cedac77ec39f2d449657abf75f11cd0, type: 3}
+  m_Name: 5_UnCookedMushrooms001
+  m_EditorClassIdentifier: 
+  itemName: UnCooked Mushrooms
+  itemIcon: {fileID: 21300000, guid: 7375acda709c77842a1a280c3c9a6e07, type: 3}
+  isWieldable: 0
+  itemID: 5
+  isStackable: 1
+  maxStackAmount: 99
+  useDurability: 0
+  maxDurabilty: 0
+  currentDurability: 0
+  isCraftable: 0
+  crftItems: []
+  crftAmnt: 
+  makesHowMany: 0
+  MinLevelToCraft: 0
+  isConsumable: 1
+  isFood: 1
+  isWater: 0
+  foodAmount: 10
+  waterAmount: 0
