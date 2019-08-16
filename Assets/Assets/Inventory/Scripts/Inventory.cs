@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using System;
 
 public class Inventory : MonoBehaviour
@@ -9,6 +10,9 @@ public class Inventory : MonoBehaviour
     [Header("Public Crap")]
     public GameObject showInventory;
     public GameObject showCrafting;
+    public GameObject toolTipPanel;
+    public TextMeshProUGUI toolTipText;
+    public Image toolTipImage;
     public PauseMenu pauseMenu;
     public static bool inventoryActive;
     public static bool craftingActive;
@@ -25,13 +29,11 @@ public class Inventory : MonoBehaviour
     [HideInInspector]
     public int draggingAmount;
 
-    public GameObject toolTipPanel = null;
-    public Text toolTipText = null;
-
     private void Start()
     {
         showInventory.SetActive(false);
         showCrafting.SetActive(false);
+        toolTipPanel.SetActive(false);
     }
 
     private void Update()
@@ -54,6 +56,7 @@ public class Inventory : MonoBehaviour
                 inventoryActive = false;
                 showInventory.SetActive(false);
                 showCrafting.SetActive(false);
+                toolTipPanel.SetActive(false);
 
                 if (!PauseMenu.isPaused)
                 {
@@ -181,13 +184,14 @@ public class Inventory : MonoBehaviour
 
     public void ShowToolTip(Item toolTipItem)
     {
-        //toolTipPanel.SetActive(true);
-        //toolTipText.text = toolTipItem.itemName + "\n" + toolTipItem.MinLevelToCraft.ToString();
+        toolTipPanel.SetActive(true);
+        toolTipText.text = toolTipItem.itemName;
+        toolTipImage.sprite = toolTipItem.itemIcon;
     }
 
     public void HideToolTip()
     {
-        //toolTipPanel.SetActive(false);
+        toolTipPanel.SetActive(false);
     }
 
     //end o class
