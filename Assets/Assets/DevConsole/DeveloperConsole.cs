@@ -39,6 +39,7 @@ namespace Console
         public Text inputText;
         public InputField consoleInput;
 
+
         private void Awake()
         {
             if (Instance != null)
@@ -93,6 +94,7 @@ namespace Console
                 consoleInput.ActivateInputField();
                 if (consoleCanvas.gameObject.activeInHierarchy && !PauseMenu.isPaused)
                 {
+                    GameManager.devConsoleActive = true;
                     PlayerFPSController.current.enabled = false;
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
@@ -100,6 +102,7 @@ namespace Console
                 }
                 else if(!PauseMenu.isPaused)
                 {
+                    GameManager.devConsoleActive = false;
                     PlayerFPSController.current.enabled = true;
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;

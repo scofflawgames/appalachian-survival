@@ -9,11 +9,14 @@ public class GameManager : MonoBehaviour
     public Vector3 playerPos;
     public Quaternion playerRot;
 
+    [Header("Static References")]
+    public static bool devConsoleActive = false;
+
     void Awake()
     {
         //spawn in player
         //Instantiate(playerObject, playerPos, playerRot);
-        GameObject thePlayer = Instantiate(playerObject, playerPos, playerRot);
+        //GameObject thePlayer = Instantiate(playerObject, playerPos, playerRot);
     }
 
 

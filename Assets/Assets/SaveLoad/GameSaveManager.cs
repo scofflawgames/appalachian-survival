@@ -32,6 +32,7 @@ public class GameSaveManager : MonoBehaviour
     private ItemDatabase database;
     private PauseMenu pauseMenu;
     private ToolBelt toolBelt;
+    private WeaponChange weaponChange;
 
     [Header("Player References")]
     public PlayerFPSController playerFPSController;
@@ -41,6 +42,7 @@ public class GameSaveManager : MonoBehaviour
 
     private void Awake()
     {
+        weaponChange = GameObject.FindObjectOfType<WeaponChange>();
         inventory = GameObject.FindObjectOfType<Inventory>();
         database = GameObject.FindObjectOfType<ItemDatabase>();
         pauseMenu = GameObject.FindObjectOfType<PauseMenu>();
@@ -237,6 +239,9 @@ public class GameSaveManager : MonoBehaviour
             //set pickupPrompt to active
             harvest = GameObject.FindObjectOfType<Harvest>();
             harvest.pickUpPrompt.SetActive(true);
+
+            //set up player FPS Arms animator
+            weaponChange.GetAnimatorComponent();
 
         }
     }

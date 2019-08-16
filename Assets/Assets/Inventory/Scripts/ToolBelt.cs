@@ -18,6 +18,8 @@ public class ToolBelt : MonoBehaviour
     private HungerThirst hungerThirst;
     private PlayerManager playerManager;
     private Inventory inventory;
+    private ItemDatabase database;
+    private WeaponChange weaponChange;
 
 
     Image selectorImage = null;
@@ -27,6 +29,9 @@ public class ToolBelt : MonoBehaviour
     {
         playerManager = FindObjectOfType<PlayerManager>();
         hungerThirst = FindObjectOfType<HungerThirst>();
+        weaponChange = FindObjectOfType<WeaponChange>();
+        database = FindObjectOfType<ItemDatabase>();
+        inventory = FindObjectOfType<Inventory>();
 
         selectorImage = toolBeltSlots[selectedItem].transform.GetChild(2).GetComponent<Image>();
         selectorImage.enabled = true;
@@ -41,11 +46,19 @@ public class ToolBelt : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !Inventory.inventoryActive && !PauseMenu.isPaused)
         {
             Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
-            if (currentSlot.myItem != null && currentSlot.myItem.isConsumable && currentSlot.myItem.isFood)
+            if (currentSlot.myItem != null && currentSlot.myItem.isConsumable && currentSlot.myItem.isFood) //eating food
             {
                 hungerThirst.AddHunger(-currentSlot.myItem.foodAmount);
                 playerManager.RefreshHunger();
                 print("You just ate 1 " + currentSlot.myItem.itemName + " that you found by the toilet.. Congratulations!");
+                currentSlot.RemoveItem(1);
+            }
+            else if (currentSlot.myItem != null && currentSlot.myItem.isConsumable && currentSlot.myItem.isWater) //drinking water
+            {
+                hungerThirst.AddThirst(-currentSlot.myItem.waterAmount);
+                playerManager.RefreshThirst();
+                print("You just drank 1 " + currentSlot.myItem.itemName + " that you got from the nasty ass toilet. SICK FUCK!!");
+                inventory.AddItem(database.GetItemById(6), 1);
                 currentSlot.RemoveItem(1);             
             }
         }
@@ -53,7 +66,7 @@ public class ToolBelt : MonoBehaviour
 
     public void ItemSelector()
     {
-        if (Input.GetKeyDown(KeyCode.E)) // select next item
+        if (Input.GetKeyDown(KeyCode.E) && !GameManager.devConsoleActive) // select next item
         {
             if (selectedItem < 6)
             {
@@ -81,7 +94,7 @@ public class ToolBelt : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) // select previous item
+        if (Input.GetKeyDown(KeyCode.Q) && !GameManager.devConsoleActive) // select previous item
         {
             if (selectedItem > -1)
             {
@@ -109,11 +122,13 @@ public class ToolBelt : MonoBehaviour
         print("Current item equipped is " + ItemName + " ItemID: " + itemID + " Amount: " + itemAMT);
         currentItemID = itemID;
         currentItemAMT = itemAMT;
+        WeaponChange.equippableItemID = currentItemID;
+        weaponChange.playerAnimation();
     }
 
     public void MouseScrollSelector()
     {
-        if (Input.GetAxis("Mouse ScrollWheel") > 0f) //scroll forward
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f && !GameManager.devConsoleActive) //scroll forward
         {
             if (selectedItem < 6)
             {
@@ -134,13 +149,14 @@ public class ToolBelt : MonoBehaviour
             if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
             {
                 WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
+                
             }
             else
             {
                 WieldableEquip("null", 0, 0);
             }
         }
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) //scroll backward
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f && !GameManager.devConsoleActive) //scroll backward
         {
             if (selectedItem > -1)
             {

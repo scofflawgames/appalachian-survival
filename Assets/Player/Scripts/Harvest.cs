@@ -12,7 +12,7 @@ public class Harvest : MonoBehaviour
    
 
     private TextMeshProUGUI pickUpPromptText;
-    public Camera cam;
+    private Camera cam;
     private ItemDatabase itemDatabase;
     private Inventory inventory;
     private ToolBelt toolBelt;
@@ -25,7 +25,7 @@ public class Harvest : MonoBehaviour
         cam = GetComponent<Camera>();
     }
 
-    void Start()
+    private void Start()
     {
         pickUpPromptText = pickUpPrompt.GetComponent<TextMeshProUGUI>();
         //pickUpPrompt.SetActive(false);        
@@ -48,8 +48,8 @@ public class Harvest : MonoBehaviour
             }
             else if (dirtyWater != null)
             {
-                print("Is looking at dirty water?");
-                print(toolBelt.currentItemID);
+                //print("Is looking at dirty water?");
+                //print(toolBelt.currentItemID);
                 dirtyWaterPrompt(hit.transform.name, dirtyWater.waterID);
             }
 
@@ -90,7 +90,13 @@ public class Harvest : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 inventory.AddItem(itemDatabase.GetItemById(objectID), toolBelt.currentItemAMT);
-                toolBelt.DestroyCurrentItem();              
+
+                //refresh until I can add item specific to the slot that the previous item was removed from
+                toolBelt.currentItemID = 0;
+                toolBelt.currentItemAMT = 0;
+
+                toolBelt.DestroyCurrentItem();
+                pickUpPrompt.SetActive(false);
             }
         }
 
