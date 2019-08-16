@@ -11,6 +11,8 @@ public class ToolBelt : MonoBehaviour
 
     public int selectedItem = 0;
     public int previousSelected = 0;
+    public int currentItemID;
+    public int currentItemAMT;
     //private int maxItems = 5;
 
     private HungerThirst hungerThirst;
@@ -71,11 +73,11 @@ public class ToolBelt : MonoBehaviour
 
             if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
             {
-                WieldableEquip(currentSlot.myItem.itemName);
+                WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
             }
             else
             {
-                WieldableEquip("null");
+                WieldableEquip("null", 0, 0);
             }
         }
 
@@ -102,9 +104,11 @@ public class ToolBelt : MonoBehaviour
 
     }
 
-    public void WieldableEquip(string ItemName)
+    public void WieldableEquip(string ItemName, int itemID, int itemAMT)
     {
-
+        print("Current item equipped is " + ItemName + " ItemID: " + itemID + " Amount: " + itemAMT);
+        currentItemID = itemID;
+        currentItemAMT = itemAMT;
     }
 
     public void MouseScrollSelector()
@@ -129,11 +133,11 @@ public class ToolBelt : MonoBehaviour
 
             if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
             {
-                WieldableEquip(currentSlot.myItem.itemName);
+                WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
             }
             else
             {
-                WieldableEquip("null");
+                WieldableEquip("null", 0, 0);
             }
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f) //scroll backward
@@ -156,11 +160,11 @@ public class ToolBelt : MonoBehaviour
 
             if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
             {
-                WieldableEquip(currentSlot.myItem.itemName);
+                WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
             }
             else
             {
-                WieldableEquip("null");
+                WieldableEquip("null", 0, 0);
             }
 
         }
@@ -184,12 +188,18 @@ public class ToolBelt : MonoBehaviour
 
         if (currentSlot.myItem != null)
         {
-            WieldableEquip(currentSlot.myItem.itemName);
+            WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
         }
         else
         {
-            WieldableEquip("null");
+            WieldableEquip("null", 0, 0);
         }
+    }
+
+    public void DestroyCurrentItem()
+    {
+        Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
+        currentSlot.RemoveItem(currentSlot.myAmount);
     }
 
 }

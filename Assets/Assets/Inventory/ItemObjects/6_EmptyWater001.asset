@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Empty Water Bottle
   itemIcon: {fileID: 21300000, guid: b328f8d965a25e1408cfb2391d514765, type: 3}
-  isWieldable: 0
+  isWieldable: 1
   itemID: 6
   isStackable: 1
   maxStackAmount: 99

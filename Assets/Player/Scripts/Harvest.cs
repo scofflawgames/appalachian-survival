@@ -15,17 +15,18 @@ public class Harvest : MonoBehaviour
     public Camera cam;
     private ItemDatabase itemDatabase;
     private Inventory inventory;
+    private ToolBelt toolBelt;
     
 
     private void Awake()
     {
+        toolBelt = FindObjectOfType<ToolBelt>();
         pickUpPrompt = GameObject.FindGameObjectWithTag("PickupPrompt");
         cam = GetComponent<Camera>();
     }
 
     void Start()
     {
-
         pickUpPromptText = pickUpPrompt.GetComponent<TextMeshProUGUI>();
         //pickUpPrompt.SetActive(false);        
         inventory = FindObjectOfType<Inventory>();
@@ -39,11 +40,19 @@ public class Harvest : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 2))
         {
             Harvestable harvestable = hit.collider.GetComponent<Harvestable>();
+            DirtyWater dirtyWater = hit.collider.GetComponent<DirtyWater>();
 
             if (harvestable != null)
             {
                 harvestPrompt(hit.transform.gameObject, hit.transform.name, harvestable.objectID, harvestable.objectAmt);
             }
+            else if (dirtyWater != null)
+            {
+                print("Is looking at dirty water?");
+                print(toolBelt.currentItemID);
+                dirtyWaterPrompt(hit.transform.name, dirtyWater.waterID);
+            }
+
             //print("I'm looking at " + hit.transform.name);
             //if (hit.transform.name == "Mushroom001")
             //{
@@ -71,5 +80,21 @@ public class Harvest : MonoBehaviour
             Destroy(harvestObject);
         }
     }
+
+    private void dirtyWaterPrompt(string objectName, int objectID)
+    {
+        if (toolBelt.currentItemID == 6)
+        {
+            pickUpPrompt.SetActive(true);
+            pickUpPromptText.text = ("PRESS <E> TO FILL EMPTY BOTTLE(S) WITH: " + objectName);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                inventory.AddItem(itemDatabase.GetItemById(objectID), toolBelt.currentItemAMT);
+                toolBelt.DestroyCurrentItem();              
+            }
+        }
+
+    }
+
 }
 
