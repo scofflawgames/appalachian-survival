@@ -6,11 +6,11 @@ using DeepWolf.HungerThirstSystem;
 using UnityEngine.UI;
 using System;
 
-    public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
     {
         private HungerThirst hungerThirst;
 
-
+        [Header("Hunger, Thirst and Health")]
         [SerializeField] private TextMeshProUGUI hungerText = null;
         public TextMeshProUGUI thirstText;
         public TextMeshProUGUI healthText;
@@ -21,6 +21,14 @@ using System;
         public bool isDehydrating = false;
         public bool isStarving = false;
 
+        [Space]
+
+        [Header("Player FPS Animations")]
+        public Animator playerFPSArms;
+
+        private ToolBelt toolBelt;
+
+
         private void Awake()
         {
             hungerThirst = FindObjectOfType<HungerThirst>();
@@ -28,6 +36,9 @@ using System;
             RefreshPlayerHealth();
             RefreshHunger();
             RefreshThirst();
+
+            //fps animations shit
+            toolBelt = FindObjectOfType<ToolBelt>();
         }
 
         private void FixedUpdate()
@@ -53,7 +64,15 @@ using System;
 
         }
 
-        public void RefreshHunger()
+    private void Update()
+    {
+        if (!PauseMenu.isPaused && toolBelt.currentItemID == 1 && Input.GetMouseButton(0))
+        {
+            playerFPSArms.Play("AxeSwing");
+        }
+    }
+
+    public void RefreshHunger()
         {
             hungerText.text = string.Format("Hunger: " + hungerThirst.Hunger);
         }

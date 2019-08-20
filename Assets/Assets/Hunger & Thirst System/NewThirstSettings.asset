@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232cb0070675acf4ab21306b5c3be6d8, type: 3}
   m_Name: NewThirstSettings
   m_EditorClassIdentifier: 
-  increaseInterval: 8
-  increaseAmount: 8
+  increaseInterval: 20
+  increaseAmount: 2
   maxValue: 100
   useSounds: 0
   _beginDehydrationPercentage: 100

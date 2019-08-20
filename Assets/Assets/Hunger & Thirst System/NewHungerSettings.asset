@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719f4c828308408479c3696af6f326ae, type: 3}
   m_Name: NewHungerSettings
   m_EditorClassIdentifier: 
-  increaseInterval: 10
-  increaseAmount: 8
+  increaseInterval: 20
+  increaseAmount: 2
   maxValue: 100
   useSounds: 0
   _beginStarvationPercentage: 100
