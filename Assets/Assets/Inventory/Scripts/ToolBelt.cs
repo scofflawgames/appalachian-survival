@@ -20,6 +20,7 @@ public class ToolBelt : MonoBehaviour
     private Inventory inventory;
     private ItemDatabase database;
     private WeaponChange weaponChange;
+    private UsingSounds usingSounds;
 
 
     Image selectorImage = null;
@@ -32,6 +33,7 @@ public class ToolBelt : MonoBehaviour
         weaponChange = FindObjectOfType<WeaponChange>();
         database = FindObjectOfType<ItemDatabase>();
         inventory = FindObjectOfType<Inventory>();
+        usingSounds = FindObjectOfType<UsingSounds>();
 
         selectorImage = toolBeltSlots[selectedItem].transform.GetChild(2).GetComponent<Image>();
         selectorImage.enabled = true;
@@ -48,6 +50,7 @@ public class ToolBelt : MonoBehaviour
             Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
             if (currentSlot.myItem != null && currentSlot.myItem.isConsumable && currentSlot.myItem.isFood) //eating food
             {
+                usingSounds.playAudio(0);
                 hungerThirst.AddHunger(-currentSlot.myItem.foodAmount);
                 playerManager.RefreshHunger();
                 print("You just ate 1 " + currentSlot.myItem.itemName + " that you found by the toilet.. Congratulations!");
@@ -55,6 +58,7 @@ public class ToolBelt : MonoBehaviour
             }
             else if (currentSlot.myItem != null && currentSlot.myItem.isConsumable && currentSlot.myItem.isWater) //drinking water
             {
+                usingSounds.playAudio(1);
                 hungerThirst.AddThirst(-currentSlot.myItem.waterAmount);
                 playerManager.RefreshThirst();
                 print("You just drank 1 " + currentSlot.myItem.itemName + " that you got from the nasty ass toilet. SICK FUCK!!");

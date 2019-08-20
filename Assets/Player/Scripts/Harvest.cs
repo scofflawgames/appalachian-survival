@@ -16,6 +16,8 @@ public class Harvest : MonoBehaviour
     private ItemDatabase itemDatabase;
     private Inventory inventory;
     private ToolBelt toolBelt;
+
+    private PickUpSounds pickUpSounds;
     
 
     private void Awake()
@@ -27,10 +29,10 @@ public class Harvest : MonoBehaviour
 
     private void Start()
     {
-        pickUpPromptText = pickUpPrompt.GetComponent<TextMeshProUGUI>();
-        //pickUpPrompt.SetActive(false);        
+        pickUpPromptText = pickUpPrompt.GetComponent<TextMeshProUGUI>();      
         inventory = FindObjectOfType<Inventory>();
         itemDatabase = FindObjectOfType<ItemDatabase>();
+        pickUpSounds = FindObjectOfType<PickUpSounds>();
     }
 
     private void Update()
@@ -74,6 +76,7 @@ public class Harvest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            pickUpSounds.playAudio(0);
             print("Harvested " + objectAMT + " " + objectName + "(S)");
             //some kind of audio for harvesting
             inventory.AddItem(itemDatabase.GetItemById(objectID), objectAMT);
@@ -89,6 +92,7 @@ public class Harvest : MonoBehaviour
             pickUpPromptText.text = ("PRESS <E> TO FILL EMPTY BOTTLE(S) WITH: " + objectName);
             if (Input.GetKeyDown(KeyCode.E))
             {
+                pickUpSounds.playAudio(1);
                 inventory.AddItem(itemDatabase.GetItemById(objectID), toolBelt.currentItemAMT);
 
                 //refresh until I can add item specific to the slot that the previous item was removed from
