@@ -5,13 +5,25 @@ using UnityEngine;
 public class DamageReciever : MonoBehaviour
 {
     //put in enums for type to match up with sound from damage(e.g, fleshy enemy, wood block, concrete, metal, etc..)
+    public GameObject enemyAIHolder;
+
+    public Animator enemyAnim = null;
 
     public AudioClip[] damageAudio;
     private AudioSource damageAudioSource;
+
     public static bool isHit = false;
+
+    public int enemyHealth;
+    public int enemyMeatAMT;
+
+    private ItemDatabase itemDatabase;
+    private Inventory inventory;
 
     private void Start()
     {
+        itemDatabase = FindObjectOfType<ItemDatabase>();
+        inventory = FindObjectOfType<Inventory>();
         damageAudioSource = GetComponent<AudioSource>();
     }
 
@@ -21,11 +33,20 @@ public class DamageReciever : MonoBehaviour
 
         if (damageCollider != null && !isHit)
         {
-            isHit = true;
-            StartCoroutine(damageCoolDown(0.5f));
-            damageAudioSource.clip = damageAudio[0];
-            damageAudioSource.Play();
-            print("WeaponDamage has made contact with DamageReciever");
+            enemyHealth -= damageCollider.weaponDamageAmt;
+            if (enemyHealth <= 0)
+            {
+                inventory.AddItem(itemDatabase.GetItemById(10), enemyMeatAMT);
+                Destroy(enemyAIHolder);
+            }
+            else
+            {
+                isHit = true;
+                enemyAnim.Play("rat_hit");
+                StartCoroutine(damageCoolDown(0.5f));
+                damageAudioSource.clip = damageAudio[0];
+                damageAudioSource.Play();             
+            }
         }
         
     }

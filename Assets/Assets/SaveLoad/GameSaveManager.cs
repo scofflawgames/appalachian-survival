@@ -396,7 +396,7 @@ public class PlayerStateData
 {
     public Vector3 playerPos;
     public Quaternion playerRot;
-
+    //currentHunger, currentThirst, currentSickness, currentSanity, currentHealth, maxHealth
 }
 
 [Serializable]
