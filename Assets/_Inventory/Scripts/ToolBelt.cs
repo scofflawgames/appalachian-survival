@@ -134,7 +134,7 @@ public class ToolBelt : MonoBehaviour
 
     public void WieldableEquip(string ItemName, int itemID, int itemAMT)
     {
-        print("Current item equipped is " + ItemName + " ItemID: " + itemID + " Amount: " + itemAMT);
+        //print("Current item equipped is " + ItemName + " ItemID: " + itemID + " Amount: " + itemAMT);
         currentItemID = itemID;
         currentItemAMT = itemAMT;
         WeaponChange.equippableItemID = currentItemID;
@@ -165,7 +165,7 @@ public class ToolBelt : MonoBehaviour
             {
                 WieldableEquip("null", 0, 0);
                 GroundPlacementManager.activeBlock = false;
-                print("Active Block = " + GroundPlacementManager.activeBlock);
+                //print("Active Block = " + GroundPlacementManager.activeBlock);
             }
             else if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
             {
@@ -173,14 +173,14 @@ public class ToolBelt : MonoBehaviour
             }
             else if (currentSlot.myItem.isPlaceable && currentSlot.myItem != null)
             {
-                print("Current item equipped is " + currentSlot.myItem.itemName + " ItemID: " + currentSlot.myItem.itemID + " Amount: " + currentSlot.myAmount);
+                //print("Current item equipped is " + currentSlot.myItem.itemName + " ItemID: " + currentSlot.myItem.itemID + " Amount: " + currentSlot.myAmount);
                 GroundPlacementManager.activeBlock = true;
-                print("Active Block = " + GroundPlacementManager.activeBlock);
+                //print("Active Block = " + GroundPlacementManager.activeBlock);
             }
             else if (!currentSlot.myItem.isPlaceable ||  currentSlot.myItem == null || currentSlot.myAmount <= 0)
             {
                 GroundPlacementManager.activeBlock = false;
-                print("Active Block = " + GroundPlacementManager.activeBlock);
+                //print("Active Block = " + GroundPlacementManager.activeBlock);
             }
 
 

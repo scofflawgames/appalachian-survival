@@ -21,6 +21,8 @@ public class GroundPlacementManager : MonoBehaviour
 
     public static bool activeBlock = false;
 
+    public int blockSide;
+
     private void Awake()
     {
         groundGrid = FindObjectOfType<GroundGrid>();
@@ -32,6 +34,7 @@ public class GroundPlacementManager : MonoBehaviour
         if (activeBlock)
         {
             DetectWhichSide();
+
             HandleNewObjectHotkey();
             if (currentPlaceableObject != null)
             {
@@ -56,32 +59,34 @@ public class GroundPlacementManager : MonoBehaviour
 
                 if (MyNormal == hitInfo.transform.up)
                 {
-                    print("Hitting top of plane/object!!");
+                    //print("Hitting top of plane/object!!");
+                    blockSide = 1;
                 }
 
                 if (MyNormal == -hitInfo.transform.up)
                 {
-                    print("Hitting bottom of plane/object!!");
+                   // print("Hitting bottom of plane/object!!");
+                    blockSide = 2;
                 }
 
                 if (MyNormal == hitInfo.transform.right)
                 {
-                    print("Hitting right side!!");
+                   // print("Hitting right side!!");
                 }
 
                 if (MyNormal == -hitInfo.transform.right)
                 {
-                    print("Hitting left side!!");
+                   // print("Hitting left side!!");
                 }
 
                 if (MyNormal == hitInfo.transform.forward)
                 {
-                    print("Hitting front side!!");
+                   // print("Hitting front side!!");
                 }
 
                 if (MyNormal == -hitInfo.transform.forward)
                 {
-                    print("Hitting back side!!");
+                    //print("Hitting back side!!");
                 }
             }
         }
@@ -116,9 +121,11 @@ public class GroundPlacementManager : MonoBehaviour
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo))
         {
+            Vector3 defaulthitInfoPoints = new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z);
+
             PlaceObjectNear(hitInfo.point);
 
-            //currentPlaceableObject.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y + 0.5f, hitInfo.point.z);
+            //currentPlaceableObject.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y, hitInfo.point.z);
             //currentPlaceableObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal)
         }
     }

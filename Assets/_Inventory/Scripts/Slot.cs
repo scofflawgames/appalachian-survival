@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
 
     Inventory inventory;
@@ -19,7 +19,7 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
 
     public Item myItem;
     public int myAmount;
-    //public int slotID;
+    public int slotID;
 
     void Awake()
     {
@@ -129,11 +129,45 @@ public class Slot : MonoBehaviour, IBeginDragHandler, IDragHandler, IDropHandler
         inventory.draggingImage.transform.position = Input.mousePosition;
     }
 
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (eventData.pointerCurrentRaycast.gameObject != null)
+        {
+            print(eventData.pointerCurrentRaycast.gameObject.tag);
+            if (!eventData.pointerCurrentRaycast.gameObject.CompareTag("Slot"))
+            {
+                inventory.AddItemSpecific(inventory.draggingItem, inventory.draggingAmount, slotID);
+                inventory.EndDrag();
+            }
+
+        }
+        else
+        {
+            inventory.AddItemSpecific(inventory.draggingItem, inventory.draggingAmount, slotID);
+            inventory.EndDrag();
+        }
+
+
+    }
+
     public void OnDrop(PointerEventData eventData)
     {
-        AddItem(inventory.draggingItem, inventory.draggingAmount);
-        inventory.EndDrag();
-        toolBelt.DragAndDropCheck();
+        Slot dropSlot = eventData.pointerCurrentRaycast.gameObject.GetComponent<Slot>();
+
+        if (dropSlot.myItem == null && eventData.pointerCurrentRaycast.gameObject.CompareTag("Slot"))
+        {
+            AddItem(inventory.draggingItem, inventory.draggingAmount);
+            inventory.EndDrag();
+            toolBelt.DragAndDropCheck();
+        }
+        //else if(dropSlot != null && eventData.pointerCurrentRaycast.gameObject.CompareTag("Slot") && dropSlot.slotID == slotID)
+       // {
+            //print("Same slot as it was, currently and error!!");
+            //inventory.AddItemSpecific(inventory.draggingItem, inventory.draggingAmount, slotID);
+         //   inventory.EndDrag();
+        //}
+
+
     }
 
 

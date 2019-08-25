@@ -7,6 +7,7 @@ TagManager:
   - PickupPrompt
   - Ground
   - Block
+  - Slot
   layers:
   - Default
   - TransparentFX
