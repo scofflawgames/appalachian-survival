@@ -15,18 +15,81 @@ public class GroundPlacementManager : MonoBehaviour
 
     private BoxCollider placeableObjectCollider;
 
+    private GroundGrid groundGrid;
+
+    private ToolBelt toolBelt;
+
+    public static bool activeBlock = false;
+
+    private void Awake()
+    {
+        groundGrid = FindObjectOfType<GroundGrid>();
+        toolBelt = FindObjectOfType<ToolBelt>();
+    }
 
     private void Update()
     {
-        HandleNewObjectHotkey();
-
-        if (currentPlaceableObject != null)
+        if (activeBlock)
         {
-            MoveCurrentPlaceableObjectToMouse();
-            RotateWithMouseClick();
-            ReleaseIfClicked();
+            DetectWhichSide();
+            HandleNewObjectHotkey();
+            if (currentPlaceableObject != null)
+            {
+                MoveCurrentPlaceableObjectToMouse();
+                RotateWithMouseClick();
+                ReleaseIfClicked();
+            }
         }
     }
+
+    public void DetectWhichSide()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            Vector3 MyNormal = hitInfo.normal;
+            //print(hitInfo.collider.tag);
+            if (hitInfo.collider.CompareTag("Block"))
+            {
+                MyNormal = hitInfo.transform.TransformDirection(MyNormal);
+
+                if (MyNormal == hitInfo.transform.up)
+                {
+                    print("Hitting top of plane/object!!");
+                }
+
+                if (MyNormal == -hitInfo.transform.up)
+                {
+                    print("Hitting bottom of plane/object!!");
+                }
+
+                if (MyNormal == hitInfo.transform.right)
+                {
+                    print("Hitting right side!!");
+                }
+
+                if (MyNormal == -hitInfo.transform.right)
+                {
+                    print("Hitting left side!!");
+                }
+
+                if (MyNormal == hitInfo.transform.forward)
+                {
+                    print("Hitting front side!!");
+                }
+
+                if (MyNormal == -hitInfo.transform.forward)
+                {
+                    print("Hitting back side!!");
+                }
+            }
+        }
+    }
+            //currentPlaceableObject.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y + 0.5f, hitInfo.point.z);
+            //currentPlaceableObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal)
+ 
+
 
     private void ReleaseIfClicked()
     {
@@ -34,6 +97,7 @@ public class GroundPlacementManager : MonoBehaviour
         {
             placeableObjectCollider.enabled = true;
             currentPlaceableObject = null;
+            toolBelt.DestroyCurrentItemSpecific(1);
         }
     }
 
@@ -52,7 +116,9 @@ public class GroundPlacementManager : MonoBehaviour
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo))
         {
-            currentPlaceableObject.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y + 0.5f, hitInfo.point.z);
+            PlaceObjectNear(hitInfo.point);
+
+            //currentPlaceableObject.transform.position = new Vector3(hitInfo.point.x, hitInfo.point.y + 0.5f, hitInfo.point.z);
             //currentPlaceableObject.transform.rotation = Quaternion.FromToRotation(Vector3.up, hitInfo.normal)
         }
     }
@@ -60,6 +126,7 @@ public class GroundPlacementManager : MonoBehaviour
     private void HandleNewObjectHotkey()
     {
         if (Input.GetKeyDown(newObjectHotKey))
+        //if(activeBlock)
         {
             if (currentPlaceableObject == null)
             {
@@ -72,5 +139,15 @@ public class GroundPlacementManager : MonoBehaviour
                 Destroy(currentPlaceableObject);
             }
         }
+    }
+
+    private void PlaceObjectNear(Vector3 clickPoint)
+    {
+        var finalPosition = groundGrid.GetNearestPointOnGrid(clickPoint);
+
+        currentPlaceableObject.transform.position = finalPosition;
+        //GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = finalPosition;
+
+        //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = nearPoint;
     }
 }

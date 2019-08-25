@@ -15,9 +15,9 @@ MonoBehaviour:
   itemName: Basic Wood Block
   itemIcon: {fileID: 21300000, guid: c9b52d308d58ef04c911ad63c3f27f76, type: 3}
   isWieldable: 0
-  itemID: 0
-  isStackable: 0
-  maxStackAmount: 0
+  itemID: 11
+  isStackable: 1
+  maxStackAmount: 99
   useDurability: 0
   maxDurabilty: 0
   currentDurability: 0

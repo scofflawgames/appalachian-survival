@@ -21,6 +21,7 @@ public class ToolBelt : MonoBehaviour
     private ItemDatabase database;
     private WeaponChange weaponChange;
     private UsingSounds usingSounds;
+    private GroundPlacementManager groundPlacementManager;
 
 
     Image selectorImage = null;
@@ -34,6 +35,7 @@ public class ToolBelt : MonoBehaviour
         database = FindObjectOfType<ItemDatabase>();
         inventory = FindObjectOfType<Inventory>();
         usingSounds = FindObjectOfType<UsingSounds>();
+        groundPlacementManager = FindObjectOfType<GroundPlacementManager>();
 
         selectorImage = toolBeltSlots[selectedItem].transform.GetChild(2).GetComponent<Image>();
         selectorImage.enabled = true;
@@ -96,6 +98,15 @@ public class ToolBelt : MonoBehaviour
             {
                 WieldableEquip("null", 0, 0);
             }
+
+            if (currentSlot.myItem != null && currentSlot.myItem.isPlaceable)
+            {
+                GroundPlacementManager.activeBlock = true;
+            }
+            else
+            {
+                GroundPlacementManager.activeBlock = false;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && !GameManager.devConsoleActive) // select previous item
@@ -150,15 +161,31 @@ public class ToolBelt : MonoBehaviour
             //SPACE
             OutlineSelector(previousSelected, selectedItem);
 
-            if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
-            {
-                WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
-                
-            }
-            else
+            if (currentSlot.myItem == null)
             {
                 WieldableEquip("null", 0, 0);
+                GroundPlacementManager.activeBlock = false;
+                print("Active Block = " + GroundPlacementManager.activeBlock);
             }
+            else if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
+            {
+                WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
+            }
+            else if (currentSlot.myItem.isPlaceable && currentSlot.myItem != null)
+            {
+                print("Current item equipped is " + currentSlot.myItem.itemName + " ItemID: " + currentSlot.myItem.itemID + " Amount: " + currentSlot.myAmount);
+                GroundPlacementManager.activeBlock = true;
+                print("Active Block = " + GroundPlacementManager.activeBlock);
+            }
+            else if (!currentSlot.myItem.isPlaceable ||  currentSlot.myItem == null || currentSlot.myAmount <= 0)
+            {
+                GroundPlacementManager.activeBlock = false;
+                print("Active Block = " + GroundPlacementManager.activeBlock);
+            }
+
+
+
+
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0f && !GameManager.devConsoleActive) //scroll backward
         {
@@ -178,14 +205,25 @@ public class ToolBelt : MonoBehaviour
             //SPACE
             OutlineSelector(previousSelected, selectedItem);
 
-            if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
+            if (currentSlot.myItem == null)
+            {
+                WieldableEquip("null", 0, 0);
+                GroundPlacementManager.activeBlock = false;
+                print("Active Block = " + GroundPlacementManager.activeBlock);
+            }
+            else if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
             {
                 WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
             }
-            else
+            else if (currentSlot.myItem.isPlaceable && currentSlot.myItem != null)
             {
-                WieldableEquip("null", 0, 0);
+                GroundPlacementManager.activeBlock = true;
             }
+            else if (!currentSlot.myItem.isPlaceable || currentSlot.myItem == null || currentSlot.myAmount <= 0)
+            {
+                GroundPlacementManager.activeBlock = false;
+            }
+
 
         }
 
@@ -206,11 +244,11 @@ public class ToolBelt : MonoBehaviour
     {
         Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
 
-        if (currentSlot.myItem != null)
+        if (currentSlot.myItem != null && currentSlot.myItem.isWieldable)
         {
             WieldableEquip(currentSlot.myItem.itemName, currentSlot.myItem.itemID, currentSlot.myAmount);
         }
-        else
+        else 
         {
             WieldableEquip("null", 0, 0);
         }
@@ -220,6 +258,12 @@ public class ToolBelt : MonoBehaviour
     {
         Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
         currentSlot.RemoveItem(currentSlot.myAmount);
+    }
+
+    public void DestroyCurrentItemSpecific(int amount)
+    {
+        Slot currentSlot = toolBeltSlots[selectedItem].GetComponent<Slot>();
+        currentSlot.RemoveItem(amount);
     }
 
 }

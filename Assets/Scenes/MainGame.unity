@@ -4307,6 +4307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 428696778}
   - component: {fileID: 428696779}
+  - component: {fileID: 428696780}
   m_Layer: 0
   m_Name: _BlockPlacementManager
   m_TagString: Untagged
@@ -4343,6 +4344,19 @@ MonoBehaviour:
   placeableObjectPrefab: {fileID: 1289010107742734219, guid: 1bf5b0c83f54f8c4f9e9d0f4e0f82bf6,
     type: 3}
   newObjectHotKey: 102
+--- !u!114 &428696780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428696777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54882345d81282a4e85e773ffd7c37bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 1
 --- !u!1 &434659003
 GameObject:
   m_ObjectHideFlags: 0
@@ -12122,7 +12136,7 @@ GameObject:
   - component: {fileID: 1466772196}
   m_Layer: 0
   m_Name: TestingGround
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 40
